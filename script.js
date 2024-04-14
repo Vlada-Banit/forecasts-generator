@@ -1,15 +1,42 @@
-/* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
+const buttonForecast = document.querySelector('.forecast-btn'); //создала переменную для кнопки
+const newForecast = document.querySelector('h1');
+const percentForecast = document.querySelector('.current-forecast p');
+const forecastTemplate = document.querySelector('#forecast-item');
+const forecasts = document.querySelector('.forecasts');
 
-/* Заранее заготовь 3-5 предсказаний и в зависимости от того, как лягут карты судьбы (или что скажет Math.random) показывай их пользователю */
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+} // создала функцию для генерации случайного числа
 
-/* Подставляй текст нового предсказания в .current-forecast h1 */
+buttonForecast.addEventListener('click', function() {
 
-/* Показывай процент вероятности, с которым предсказание сбудется — в верстке это .current-forecast p */
+    let predictionNumber = getRandomNumber(1, 6);
+    let forecast = "";
+    if (predictionNumber == 1) {
+        forecast = "Счастье не за горами)";
+    } else if (predictionNumber == 2) {
+        forecast = "Вы не узнаете, если не попытаитесь.";
+    } else if (predictionNumber == 3) {
+        forecast = "Год полон приятных сюрпризов";
+    } else if (predictionNumber == 4) {
+        forecast = "Вам признаются в любви!!";
+    } else {
+        forecast = "Вы будете блистать ярче звезд";
+    }
+    newForecast.textContent = forecast;
 
-/* Данный процент также нужно генерировать автоматически, он может принимать значения от 0 до 100% */
+    const percent = getRandomNumber(0, 100);
+    percentForecast.textContent = `${percent}%`;
+})
 
-/* Совет: заведи функцию-хелпер, которая будет заниматься только генерацией данных в диапазоне от min до max и используй ее где нужно */
+function makeForecastTemplate(title, percent) {
+    const myForecast = forecastTemplate.content.cloneNode(true);
 
-/* При генерации нового предсказания старое предсказание должно добавляться в начало списка «Мои предсказания» — .forecasts  */
+    myForecast.querySelector('h3').textContent = newForecast;
+    myForecast.querySelector('.forecast-item p').textContent = `${percentForecast}%`;
 
-/* Для добавления предсказания в список воспользуйся шаблоном forecast-item */
+    return myForecast;
+}
+
+const templateResult = makeForecastTemplate(newForecast, percentForecast) // вот тут я что-то запуталась, не понимаю,что писать в скобках, возможно вот так
+forecasts.prepend(templateResult);
