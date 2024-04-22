@@ -27,16 +27,16 @@ buttonForecast.addEventListener('click', function() {
 
     const percent = getRandomNumber(0, 100);
     percentForecast.textContent = `${percent}%`;
+
+    const templateResult = makeForecastTemplate(title, percent);
+    forecasts.prepend(templateResult);
 })
 
 function makeForecastTemplate(title, percent) {
     const myForecast = forecastTemplate.content.cloneNode(true);
 
-    myForecast.querySelector('h3').textContent = newForecast;
-    myForecast.querySelector('.forecast-item p').textContent = `${percentForecast}%`;
-
+    myForecast.querySelector('h3').textContent = title;
+    myForecast.querySelector('.forecast-item p').textContent = `${percent}%`;
     return myForecast;
-}
 
-const templateResult = makeForecastTemplate(newForecast, percentForecast) // вот тут я что-то запуталась, не понимаю,что писать в скобках, возможно вот так
-forecasts.prepend(templateResult);
+}
