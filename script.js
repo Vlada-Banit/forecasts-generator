@@ -28,7 +28,7 @@ buttonForecast.addEventListener('click', function() {
     const percent = getRandomNumber(0, 100);
     percentForecast.textContent = `${percent}%`;
 
-    const templateResult = makeForecastTemplate(title, percent);
+    const templateResult = makeForecastTemplate(forecast, percent);
     forecasts.prepend(templateResult);
 })
 
